@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.draw.mapper.GoodsMapper">
+
+    <insert id="insertGoods" parameterType="com.dream.entity.Goods">
+        INSERT INTO [dbo].[goods]
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsname != null  and goodsname != ''">goodsname,</if>
+            <if test="goodsimg != null  and goodsimg != ''">[goodsimg],</if>
+            <if test="goodstime != null  and goodstime != ''">[goodstime],</if>
+            <if test="upuserid != null">[upuserid],</if>
+            <if test="downuserid != null">[downuserid],</if>
+            <if test="drawid != null">[drawid],</if>
+            <if test="type != null">[type],</if>
+            <if test="goodsdescribeid != null  and goodsdescribeid != ''">[goodsdescribeid],</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsname != null  and goodsname != ''">#{goodsname},</if>
+            <if test="goodsimg != null  and goodsimg != ''">#{goodsimg},</if>
+            <if test="goodstime != null  and goodstime != ''">#{goodstime},</if>
+            <if test="upuserid != null">#{upuserid},</if>
+            <if test="downuserid != null">#{downuserid},</if>
+            <if test="drawid != null">#{drawid},</if>
+            <if test="goodsdescribeid != null  and goodsdescribeid != ''">#{goodsdescribeid},</if>
+        </trim>
+    </insert>
+
+    <select id="selectGoods" parameterType="com.dream.entity.Goods" resultType="com.dream.entity.Goods">
+        select goods.*,draw.verify from goods,draw
+        <where>
+            goods.drawid = draw.id
+            <if test="goodsname != null and goodsname != ''">
+                and goodsname like #{goodsname}
+            </if>
+            <if test="goodsimg != null and goodsimg != ''">
+                and goodsimg = #{goodsimg}
+            </if>
+            <if test="goodstime != null and goodstime != ''">
+                and goodstime = #{goodstime}
+            </if>
+            <if test="upuserid != null">
+                and upuserid = #{upuserid}
+            </if>
+            <if test="downuserid != null">
+                and downuserid = #{downuserid}
+            </if>
+            <if test="drawid != null">
+                and drawid = #{drawid}
+            </if>
+            <if test="goodsdescribeid != null and goodsdescribeid != ''">
+                and goodsdescribeid = #{goodsdescribeid}
+            </if>
+            <if test="verify != null">
+                and draw.verify = #{verify}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectGoodsById" parameterType="integer" resultType="com.dream.entity.Goods">
+        select * from goods where id = #{id}
+    </select>
+
+    <update id="updateGoods" parameterType="com.dream.entity.Goods">
+        update [dbo].[goods]
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsname != null  and goodsname != ''">goodsname = #{goodsname},</if>
+            <if test="goodsimg != null  and goodsimg != ''">goodsimg = #{goodsimg},</if>
+            <if test="goodstime != null  and goodstime != ''">goodstime = #{goodstime},</if>
+            <if test="goodstime != null  and goodstime != ''">goodstime = #{goodstime},</if>
+            <if test="downuserid != null">downuserid = #{downuserid},</if>
+            <if test="upuserid != null">upuserid = #{upuserid},</if>
+            <if test="drawid != null">drawid = #{drawid},</if>
+            <if test="goodsdescribeid != null  and goodsdescribeid != ''">goodsdescribeid = #{goodsdescribeid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGoods" parameterType="integer">
+        delete from goods where id = #{id}
+    </delete>
+
+</mapper>

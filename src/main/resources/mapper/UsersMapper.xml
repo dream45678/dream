@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.draw.mapper.UsersMapper">
+
+    <insert id="insertUsers" parameterType="com.dream.entity.Users">
+        INSERT INTO [dbo].[users]
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null  and username != ''">username,</if>
+            <if test="password != null  and password != ''">[password],</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null  and username != ''">#{username},</if>
+            <if test="password != null  and password != ''">#{password},</if>
+        </trim>
+    </insert>
+
+    <select id="selectUsers" parameterType="com.dream.entity.Users" resultType="com.dream.entity.Users">
+        select * from users
+        <where>
+            1=1
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="login" parameterType="com.dream.entity.Users" resultType="com.dream.entity.Users">
+        select * from users
+        <where>
+            1=1
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectUsersById" parameterType="integer" resultType="com.dream.entity.Users">
+        select * from users where id = #{id}
+    </select>
+
+    <!--<update id="updateDraw" parameterType="com.dream.entity.Draw">
+        update [dbo].[news]
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null  and newsname != ''">newsname = #{newsname},</if>
+            <if test="context != null  and context != ''">context = #{context},</if>
+            <if test="newstype != null  and newstype != ''">[newstype] = #{newstype},</if>
+        </trim>
+        where id = #{id}
+    </update>-->
+
+    <delete id="deleteUsers" parameterType="integer">
+        delete from users where id = #{id}
+    </delete>
+</mapper>
