@@ -15,7 +15,7 @@ mybatis:
 ## SqlServer ≈‰÷√
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1434;databasename=school
+    url: jdbc:sqlserver://localhost:1433;databasename=school
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
     password: root
